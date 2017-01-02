@@ -102,15 +102,13 @@ import @{fqName}\n
 \n
 
 fun ${type.raw.simpleName}(\n
-  @foreach{property:filterProperties(properties)}
-  @{property.name}: @{applyPropertyKind(mapKotlinType(property.type), property.kind)}? = null@end{',\n'}
-): @{type.raw.simpleName} = @{type.raw.name}().apply {\n
+@foreach{property:filterProperties(properties)}
+          @{property.name}: @{applyPropertyKind(mapKotlinType(property.type), property.kind)}? = null@end{',\n'}
+    ): @{type.raw.simpleName} = @{type.raw.name}(io.vertx.core.json.JsonObject()).apply {\n
 \n
 @foreach{property:filterProperties(properties)}
-  if (@{property.name} != null) {\n
-    this.@{syntheticName(property, mapKotlinType(property.type))} = @{property.name}\n
-  }\n
-\n
-@end{}
+    if (@{property.name} != null) {\n
+      this.@{syntheticName(property, mapKotlinType(property.type))} = @{property.name}\n
+    }\n
+@end{'\n'}
 }\n
-\n
